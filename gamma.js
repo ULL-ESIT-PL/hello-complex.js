@@ -10,7 +10,7 @@ Complex(676.5203681218851), Complex(-1259.1392167224028), Complex(771.3234287776
 Complex(-176.61502916214059), Complex(12.507343278686905), Complex(-0.13857109526572012),
 Complex(9.9843695780195716e-6), Complex(1.5056327351493116e-7)];
 
-var SQRT2PI = Complex(Math.sqrt(2 * Math.PI));
+var SQRT2PI = Complex(Math.sqrt(2 * Math.PI)); // sqrt(2 * PI)
 
 /*
 The Gamma function is a generalization of the factorial function to non-integer numbers. 
@@ -26,7 +26,7 @@ function gamma(z) {
     for (var i = 1; i < P.length; i++) {
         x = x.add(P[i].div(z.add(i))); // x += P[i] / (z + i);
     }
-    return SQRT2PI.mul(t.pow(z.add(0.5))).mul(t.neg().exp()).mul(x);
+    return SQRT2PI.mul(t.pow(z.add(0.5))).mul(t.neg().exp()).mul(x); // sqrt(2 * PI) * t^(z + 0.5) * e^(-t) * x;
 }
 
 let arg = process.argv[2];
