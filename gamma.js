@@ -22,9 +22,9 @@ function gamma(z) {
     z = z.sub(1);
 
     var x = P[0];
-    var t = z.add(7.5);
+    var t = z.add(7.5); // z + 7.5
     for (var i = 1; i < P.length; i++) {
-        x = x.add(P[i].div(z.add(i)));
+        x = x.add(P[i].div(z.add(i))); // x += P[i] / (z + i);
     }
     return SQRT2PI.mul(t.pow(z.add(0.5))).mul(t.neg().exp()).mul(x);
 }
