@@ -17,26 +17,41 @@ The Gamma function is a generalization of the factorial function to non-integer 
 It is often used in probability and statistics, as it shows up in the normalizing constants 
 of important probability distributions such as the Chi-square and the Gamma.
 */
-function gamma(z) {
+function gamma(zz) {
 
-    z = z.sub(1);
+    if (zz.equals(Complex(0))) { return Complex(1); }
+    z = zz.sub(1);
 
     var x = P[0];
     var t = z.add(7.5); // z + 7.5
     for (var i = 1; i < P.length; i++) {
         x = x.add(P[i].div(z.add(i))); // x += P[i] / (z + i);
     }
-    return SQRT2PI.mul(t.pow(z.add(0.5))).mul(t.neg().exp()).mul(x); // sqrt(2 * PI) * t^(z + 0.5) * e^(-t) * x;
+    let result = SQRT2PI.mul(t.pow(z.add(0.5))).mul(t.neg().exp()).mul(x); // sqrt(2 * PI) * t^(z + 0.5) * e^(-t) * x;
+    return zz.mul(result);
 }
 
-let arg = process.argv[2];
+const factorial = function(num) {
+    if (num.im !== 0) throw new Error(`Imaginary part must be zero. Instead is ${num.im}`);
+    let n = num.re;
+    if (!Number.isInteger(n)) throw new Error(`Not an Integer number ${n}`);
+    if ( n < 0) throw new Error(`Factorial of negative number ${n}`);
+    let result = Complex(1);
+    if (n === 0) return result;
+    for (let i = 1; i <= n; i++) {
+      result = result.mul(i);
+    }
+    return Complex({re: result.re, im: num.im});
+  };
+  
+  
+let arg = Complex(process.argv[2] || 10);
 
-if (arg) {
+try {
     console.log(gamma(Complex(arg)).toString());
+    console.log(factorial(Complex(arg)).toString());
     return;
-}
-var fac = 1;
-for (var i = 1; i <= 10; i++) {
-    console.log(fac, gamma(Complex(i)));
-    fac *= i;
+} catch (e) {
+    console.error(`Error: ${e.message}`);
+    return;
 }
